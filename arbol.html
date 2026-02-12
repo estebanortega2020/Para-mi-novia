@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para el amor de mi vida</title>
+    <style>
+        :root {
+            --bg-color: #f5ebe0;
+            --text-primary: #590d22;
+            --heart-red: #ff4d6d;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-color);
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            color: var(--text-primary);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 2;
+            gap: 20px;
+        }
+
+        .text-content {
+            flex: 1.2;
+            text-align: left;
+            padding-right: 20px;
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .text-content h1 { font-size: 1.8rem; margin-bottom: 10px; }
+        .text-content p { font-size: 1.1rem; line-height: 1.4; margin: 8px 0; }
+
+        .dedicatoria {
+            margin-top: 20px;
+            font-style: italic;
+            font-size: 1rem;
+            border-left: 3px solid var(--heart-red);
+            padding-left: 15px;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.3);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Contenedor del Árbol */
+        .tree-wrapper {
+            position: relative;
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tree-img {
+            width: 350px; 
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+        }
+
+        /* Animación de corazones cayendo */
+        .leaf {
+            position: absolute;
+            color: var(--heart-red);
+            font-size: 15px;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(450px) rotate(360deg) translateX(60px); opacity: 0; }
+        }
+
+        .counter-section {
+            margin-top: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        #timer {
+            display: block;
+            margin-top: 5px;
+            font-size: 1.4rem;
+            color: var(--heart-red);
+        }
+
+        .highlight { color: var(--heart-red); }
+
+        /* Responsive para móviles */
+        @media (max-width: 800px) {
+            .container { flex-direction: column; text-align: center; padding: 20px 0; }
+            .text-content { padding: 0; margin-bottom: 30px; order: 2; }
+            .tree-wrapper { order: 1; }
+            .tree-img { width: 200px; }
+            .dedicatoria { border-left: none; border-top: 3px solid var(--heart-red); border-radius: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="text-content">
+            <h1>Para el amor de mi vida:</h1>
+           
+            
+            <div class="counter-section">
+                Nuestro amor comenzó hace...
+                <div id="timer">Cargando tiempo...</div>
+            </div>
+
+            <div class="dedicatoria">
+                Mi vida, gracias por decir que SÍ. Sé que te lo puse difícil con ese botón que huía, pero así de difícil es encontrar a alguien como tú, y no pensaba dejarte ir tan fácil. ❤️<br><br>
+                Gracias por aceptar ser mi San Valentín y por compartir cada segundo conmigo desde aquel 1 de septiembre. Ver cómo el contador suma días a tu lado es mi parte favorita de este regalo, porque me recuerda que, aunque el tiempo pase, mi amor por ti solo sigue creciendo, como las hojas de ese árbol.<br><br>
+                Eres mi persona favorita y estoy feliz de que ahora este rinconcito de internet sea oficialmente nuestro. ¡Te amo!
+            </div>
+        </div>
+
+        <div class="tree-wrapper" id="tree-area">
+            <img src="arbol.png" class="tree-img" alt="Árbol de Amor">
+        </div>
+    </div>
+
+    <script>
+        // Fecha corregida: Septiembre es mes 8
+        const startDate = new Date(2024, 8, 1, 0, 30, 0); 
+
+        function updateTimer() {
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('timer').innerHTML = 
+                `${days} <span class="highlight">días</span> ${hours}h ${minutes}m ${seconds}s`;
+        }
+
+        function createLeaf() {
+            const leaf = document.createElement('div');
+            leaf.classList.add('leaf');
+            leaf.innerHTML = '❤️';
+            
+            const area = document.getElementById('tree-area');
+            const rect = area.getBoundingClientRect();
+            
+            // Ajuste para que caigan desde la copa del árbol
+            leaf.style.left = (Math.random() * (rect.width * 0.6) + (rect.width * 0.2)) + 'px';
+            leaf.style.top = (Math.random() * 100) + 'px';
+            
+            leaf.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            leaf.style.opacity = Math.random() * 0.7 + 0.3;
+
+            area.appendChild(leaf);
+            setTimeout(() => { leaf.remove(); }, 5000);
+        }
+
+        setInterval(updateTimer, 1000);
+        setInterval(createLeaf, 400); 
+        updateTimer();
+    </script>
+</body>
+</html>

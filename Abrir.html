@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi San Valentín</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5ebe0; /* Color crema de la captura */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Contenedor principal */
+        .heart-wrapper {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .heart-wrapper:hover {
+            transform: scale(1.1);
+        }
+
+        /* El corazón principal */
+        .heart-main {
+            font-size: 100px;
+            color: #d63031;
+            display: block;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));
+            animation: pulse 1.5s infinite;
+        }
+
+        /* La etiqueta "San Valentín" posicionada arriba a la derecha */
+        .label-container {
+            position: absolute;
+            top: -10px; /* Lo sube por encima del corazón */
+            left: 55px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* La línea roja que conecta */
+        .line {
+            width: 30px;
+            height: 2px;
+            background-color: #bc4749;
+            transform: rotate(-15deg);
+        }
+
+        /* El recuadro del texto */
+        .text-box {
+            border-bottom: 2px solid #bc4749;
+            border-right: 2px solid #bc4749;
+            border-top: 1px solid #bc474922;
+            border-left: 1px solid #bc474922;
+            padding: 2px 12px;
+            background: transparent;
+            color: #bc4749;
+            font-weight: 500;
+            font-size: 1.2rem;
+            white-space: nowrap;
+        }
+
+        /* La manito de clic */
+        .hand-icon {
+            position: absolute;
+            bottom: -15px;
+            left: 20px;
+            font-size: 45px;
+            animation: bounce 1.2s infinite;
+            filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+        }
+
+        /* Animaciones */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-15px) scale(1.1); }
+        }
+
+        a { text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <a href="pregunta.html" class="heart-wrapper">
+        
+        <div class="label-container">
+            <div class="line"></div>
+            <div class="text-box">Toca el corazón, vida mía</div>
+        </div>
+
+        <div class="heart-main">❤️</div>
+
+        <div class="hand-icon">👆</div>
+
+    </a>
+
+</body>
+</html>
